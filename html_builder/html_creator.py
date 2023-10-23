@@ -1,4 +1,5 @@
 from xml.etree import ElementTree as ET
+import xml.dom.minidom
 
 # Crear el elemento raíz 'html'
 html = ET.Element('html')
@@ -272,3 +273,11 @@ tree = ET.ElementTree(html)
 # Guardar el archivo HTML
 with open('mail.html', 'wb') as file:
     tree.write(file , encoding='utf-8', xml_declaration=True)
+
+with open('mail.html', 'r') as file:
+    xml_content = file.read()
+    formatted_content = xml.dom.minidom.parseString(xml_content).toprettyxml()
+
+# Reescribe el archivo formateado
+with open('mail.html', 'w') as file:
+    file.write(formatted_content)
